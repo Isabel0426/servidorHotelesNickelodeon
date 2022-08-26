@@ -2,7 +2,6 @@ import {ServicioHabitacion} from '../services/ServicioHabitacion.js'
 
 export class ControladorHabitacion{
 
-
     constructor(){}
 
     //buscar habitaciones

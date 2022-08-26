@@ -5,19 +5,19 @@ export class ServicioReserva{
     constructor(){}
     //TERMINAR DE CONFIGURAR
     async buscarTodas(){
-        let habitaciones=await modeloReserva.find()
-        return habitaciones
+        let reservas=await modeloReserva.find()
+        return reservas
     }
 
     async buscarPorId(id){
-        let habitacion=await modeloReserva.findById(id)
-        return habitacion
+        let reserva=await modeloReserva.findById(id)
+        return reserva
     }
 
     async agregar(datos){
 
-        let habitacionAGuardar=new modeloReserva(datos)
-        return await habitacionAGuardar.save()
+        let reservaAGuardar=new modeloReserva(datos)
+        return await reservaAGuardar.save()
 
     }
 
@@ -25,6 +25,10 @@ export class ServicioReserva{
 
         return modeloReserva.findByIdAndUpdate(id,datos)
 
+    }
+
+    async eliminar (id){
+        return modeloReserva.findByIdAndDelete(id)
     }
 
 
