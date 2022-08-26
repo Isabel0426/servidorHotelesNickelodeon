@@ -16,7 +16,7 @@ rutas.get('/viajescomfama/v1/habitaciones',controladorHabitacion.buscarHabitacio
 rutas.get('/viajescomfama/v1/habitacion/:id',controladorHabitacion.buscarHabitacionPorId)
 rutas.post('/viajescomfama/v1/habitacion',controladorHabitacion.agregarHabitacion)
 rutas.put('/viajescomfama/v1/habitacion/:id',controladorHabitacion.editarHabitacion)
-
+//CONFIGURAR LAS RUTAS DE LAS RESERVAS 
 
 
 
