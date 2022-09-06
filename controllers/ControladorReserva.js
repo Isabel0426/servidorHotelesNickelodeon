@@ -1,21 +1,21 @@
-import{ServicioReserva, ServicioReserva, ServicioReserva, ServicioReserva, ServicioReserva} from '../services/ServicioReserva.js'
+import {ServicioReserva} from '../services/ServicioReserva.js'
 
 export class ControladorReserva {
     constructor(){}
 
     //buscar las reservas
-    buscarReservas(request,response){
+    async  buscarReservas(request,response){
 
     //llamar servicio
-    let ServicioReserva =new ServicioReserva()
+    let servicioReserva =new ServicioReserva()
 
     try {
         response.status(200).json({
             mensaje:"exito en la consulta ",
-            datos:ServicioReserva.buscarTodas()
+            datos:await servicioReserva.buscarTodas()
            })
     } catch (error) {
-        response(400).json({
+        response.status(400).json({
             mensaje:"fallo en la consulta "+error,
             datos:null
         })
@@ -23,17 +23,17 @@ export class ControladorReserva {
 
     }
     //buscar reserva por id 
-    buscarReservasPorId(request,response){
-
-        let ServicioReserva = new ServicioReserva()
+    async buscarReservasPorId(request,response){
+        let identificador=request.params.id
+        let servicioReserva = new ServicioReserva()
 
         try {
             response.status(200).json({
-                mensaje:"exito en la consulta ",
-                datos:ServicioReserva.buscarPorId()
+                mensaje:"exito en la consulta "+identificador,
+                datos:await servicioReserva.buscarPorId(identificador)
                })
         } catch (error) {
-            response(400).json({
+            response.status(400).json({
                 mensaje:"fallo en la consulta "+error,
                 datos:null
             })
@@ -42,18 +42,18 @@ export class ControladorReserva {
 
     //Agregar reserva 
 
-    agregarReserva(request, response){
+    async agregarReserva(request, response){
         let cuerpo = request.body
-        let ServicioReserva = new ServicioReserva()
+        let servicioReserva = new ServicioReserva()
         try {
-            ServicioReserva.agregar(cuerpo)
+            servicioReserva.agregar(cuerpo)
             response.status(200).json({
                 mensaje:"exito agregando la reserva",
                 datos:null
             }) 
             
         } catch (error) {
-            response(400).json({
+            response.status(400).json({
                 mensaje:"fallo en reservando "+error,
                 datos:null
              })
@@ -61,20 +61,22 @@ export class ControladorReserva {
     }
 
     //actualizar o editar reserva
-    editarReserva(request,response){
+    async editarReserva(request,response){
+       
         let id=request.params.id
+        
         let datos=request.body
 
-        let ServicioReserva = new ServicioReserva()
+        let servicioReserva = new ServicioReserva()
 
         try {
-            ServicioReserva.actualizar(id,datos)
+            servicioReserva.actualizar(id,datos)
             response.status(200).json({
                 mensaje:"exito editando la reserva "+id,
                 datos:null
             }) 
         } catch (error) {
-            response(400).json({
+            response.status(400).json({
                 mensaje:"fallo en la modificacion de reserva "+error,
                 datos:null
              })
@@ -83,9 +85,18 @@ export class ControladorReserva {
 
     //Eliminar reserva
 
-    eliminarReserva(request,response){
+    async eliminarReserva(request,response){
+        let servicioReserva = new ServicioReserva()
+        let id=request.params.id
+        
+        let datos=request.body
         try {
-            response.status(200).json({})   
+            servicioReserva.eliminar(id,datos)
+            response.status(200).json({
+                mensaje:"exito editando la reserva "+id,
+                datos:null
+            }) 
+              
         } catch (error) {
             response(400).json({})
         }

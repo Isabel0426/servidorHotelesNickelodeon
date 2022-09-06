@@ -5,7 +5,7 @@ export class ControladorHabitacion{
     constructor(){}
 
     //buscar habitaciones
-    buscarHabitaciones(request,response){
+    async buscarHabitaciones(request,response){
 
         //llamo al servicio
         let servicioHabitacion=new ServicioHabitacion()
@@ -14,10 +14,10 @@ export class ControladorHabitacion{
         try{
            response.status(200).json({
             mensaje:"exito en la consulta jsjaj",
-            datos:servicioHabitacion.buscarTodas()
+            datos:await servicioHabitacion.buscarTodas()
            }) 
         }catch(error){ //FALLO RESOLVIENDO LA PETICION
-            response(400).json({
+            response.status(400).json({
                 mensaje:"fallo en la consulta "+error,
                 datos:null
             })
@@ -25,7 +25,7 @@ export class ControladorHabitacion{
     }
 
     //buscar habitacion por id
-    buscarHabitacionPorId(request,response){
+    async buscarHabitacionPorId(request,response){
         let identificador=request.params.id
         
         //Llamo al servicio habitaciones
@@ -34,10 +34,10 @@ export class ControladorHabitacion{
         try{
             response.status(200).json({
                 mensaje:"exito en la consulta "+identificador,
-                datos: servicioHabitacion.buscarPorId(identificador)
+                datos: await servicioHabitacion.buscarPorId(identificador)
             }) 
          }catch(error){ //FALLO RESOLVIENDO LA PETICION
-             response(400).json({
+             response.status(400).json({
                 mensaje:"fallo en la consulta "+error,
                 datos:null
              })
@@ -45,7 +45,7 @@ export class ControladorHabitacion{
     }
 
     //agregar habitacion
-    agregarHabitacion(request,response){
+    async agregarHabitacion(request,response){
         let cuerpo=request.body
 
         //Llamo al servicio habitaciones
@@ -58,7 +58,7 @@ export class ControladorHabitacion{
                 datos:null
             }) 
          }catch(error){ //FALLO RESOLVIENDO LA PETICION
-             response(400).json({
+             response.status(400).json({
                 mensaje:"fallo en la consulta "+error,
                 datos:null
              })
@@ -66,7 +66,7 @@ export class ControladorHabitacion{
     }
 
     //editar habitacion
-    editarHabitacion(request,response){
+    async editarHabitacion(request,response){
 
         //recibir id como parametro
         let id=request.params.id
@@ -84,7 +84,7 @@ export class ControladorHabitacion{
                 datos:null
             }) 
          }catch(error){ //FALLO RESOLVIENDO LA PETICION
-             response(400).json({
+             response.status(400).json({
                 mensaje:"fallo en la consulta "+error,
                 datos:null
              })
@@ -93,7 +93,7 @@ export class ControladorHabitacion{
     }
 
     //eliminar habitacion
-    eliminarHabitacion(request,response){
+    async eliminarHabitacion(request,response){
         try{
             response.status(200).json({}) 
          }catch(error){ //FALLO RESOLVIENDO LA PETICION
